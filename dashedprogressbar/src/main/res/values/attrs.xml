@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DashedProgressBar">
+        <attr name="filledProgressBarLength" format="dimension"/>
+        <attr name="filledProgressBarWidth" format="dimension"/>
+        <attr name="filledProgressBarSpacing" format="dimension"/>
+        <attr name="filledProgressBarColor" format="color"/>
+
+        <attr name="emptyProgressBarLength" format="dimension"/>
+        <attr name="emptyProgressBarWidth" format="dimension"/>
+        <attr name="emptyProgressBarSpacing" format="dimension"/>
+        <attr name="emptyProgressBarColor" format="color"/>
+
+        <attr name="startAngle" format="float"/>
+        <attr name="endAngle" format="float"/>
+
+    </declare-styleable>
+
+</resources>
