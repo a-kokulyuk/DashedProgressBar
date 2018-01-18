@@ -21,4 +21,4 @@ Step 2. Add the dependency
 
 
 ## Special thanks to
-http://123fahrschule.de/
+https://123fahrschule.de/
