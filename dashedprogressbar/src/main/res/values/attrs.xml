@@ -21,6 +21,9 @@
         </attr>
 
         <attr name="cutPadding" format="boolean" />
+
+        <attr name="bg_rim_width" format="dimension" />
+        <attr name="bg_rim_color" format="color" />
     </declare-styleable>
 
 </resources>

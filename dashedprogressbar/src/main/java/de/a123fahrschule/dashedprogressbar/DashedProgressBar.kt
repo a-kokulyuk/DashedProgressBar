@@ -41,6 +41,9 @@ open class DashedProgressBar : View {
 
     private var cutPadding: Boolean = false
 
+    private var bgRimColor: Int = 0
+    private var bgRimWidth: Float = 0f
+
     var progess: Float = 0.3f
         set(value) {
             field = value
@@ -75,6 +78,14 @@ open class DashedProgressBar : View {
         return@lazy p
     }
 
+    private val bgRimPaint by lazy {
+        return@lazy Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            strokeWidth = bgRimWidth
+            color = bgRimColor
+            style = Paint.Style.STROKE
+        }
+    }
+
     private fun initAttrs(attrs: AttributeSet) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.DashedProgressBar, 0, 0)
         try {
@@ -91,6 +102,8 @@ open class DashedProgressBar : View {
             startAngle = ta.getFloat(R.styleable.DashedProgressBar_startAngle, 0f)
             endAngle = ta.getFloat(R.styleable.DashedProgressBar_endAngle, 360f)
 
+            bgRimColor = ta.getColor(R.styleable.DashedProgressBar_bg_rim_color, 0)
+            bgRimWidth = ta.getDimension(R.styleable.DashedProgressBar_bg_rim_width, 0f)
 
             if (ta.hasValue(R.styleable.DashedProgressBar_direction)) {
                 direction = ta.getInt(R.styleable.DashedProgressBar_direction, 1)
@@ -118,8 +131,9 @@ open class DashedProgressBar : View {
             totalAngle = 360 - totalAngle
         }
 
-        canvas.drawArc(padding, padding + pad, w, h + pad, endAngle, (-1 * (totalAngle - (totalAngle * progess))) * direction * if(direction == 1) -1 else 1 , false, emptyBarPAint)
-        canvas.drawArc(padding, padding + pad, w, h + pad, startAngle, (totalAngle * progess) * direction * if(direction == 1) -1 else 1, false, filledBarPaint)
+        canvas.drawArc(padding, padding + pad, w , h + pad, startAngle, totalAngle * -1f * direction, false, bgRimPaint)
+        canvas.drawArc(padding, padding + pad, w, h + pad, endAngle, (-1 * (totalAngle - (totalAngle * progess))) * direction * if (direction == 1) -1 else 1, false, emptyBarPAint)
+        canvas.drawArc(padding, padding + pad, w, h + pad, startAngle, (totalAngle * progess) * direction * if (direction == 1) -1 else 1, false, filledBarPaint)
 
     }
 
