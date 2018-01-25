@@ -22,11 +22,6 @@ open class DashedProgressBar : View {
         }
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        if (attrs != null) {
-            initAttrs(attrs)
-        }
-    }
 
     private var filledProgressBarLength: Float = 0.0f
     private var filledProgressBarWidth: Float = 0.0f
@@ -42,7 +37,9 @@ open class DashedProgressBar : View {
     private var startAngle: Float = 0f
     private var endAngle: Float = 0f
 
-    var progess: Float = 0.5f
+    private var direction: Int = 1
+
+    var progess: Float = 0.3f
         set(value) {
             field = value
             invalidate()
@@ -92,6 +89,11 @@ open class DashedProgressBar : View {
             startAngle = ta.getFloat(R.styleable.DashedProgressBar_startAngle, 0f)
             endAngle = ta.getFloat(R.styleable.DashedProgressBar_endAngle, 360f)
 
+
+            if (ta.hasValue(R.styleable.DashedProgressBar_direction)) {
+                direction = ta.getInt(R.styleable.DashedProgressBar_direction, 1)
+            }
+
         } finally {
             ta.recycle()
         }
@@ -105,10 +107,14 @@ open class DashedProgressBar : View {
         val h = canvas.height - padding
         val w = canvas.width - padding
 
-        val pad = Math.min(getPaddingHeight(canvas.height.toFloat() / 2f, -1 * startAngle), getPaddingHeight(canvas.height.toFloat() / 2f, -1 * endAngle))
-        val totalAngle = 360 - startAngle + endAngle
-        canvas.drawArc(padding, padding + pad, w, h + pad, endAngle, -1 * (totalAngle - (totalAngle * progess)), false, emptyBarPAint)
-        canvas.drawArc(padding, padding + pad, w, h + pad, startAngle, totalAngle * progess, false, filledBarPaint)
+
+        val pad = if (direction == 1) Math.min(getPaddingHeight(canvas.height.toFloat() / 2f, -1 * startAngle), getPaddingHeight(canvas.height.toFloat() / 2f, -1 * endAngle)) else 0f
+        var totalAngle = (360 - startAngle) - (360 - endAngle)
+        if (direction == -1) {
+            totalAngle = 360 - Math.abs(totalAngle)
+        }
+        canvas.drawArc(padding, padding + pad, w, h + pad, endAngle, (-1 * (totalAngle - (totalAngle * progess))) * direction, false, emptyBarPAint)
+        canvas.drawArc(padding, padding + pad, w, h + pad, startAngle, (totalAngle * progess) * direction, false, filledBarPaint)
 
     }
 

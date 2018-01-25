@@ -2,19 +2,23 @@
 <resources>
 
     <declare-styleable name="DashedProgressBar">
-        <attr name="filledProgressBarLength" format="dimension"/>
-        <attr name="filledProgressBarWidth" format="dimension"/>
-        <attr name="filledProgressBarSpacing" format="dimension"/>
-        <attr name="filledProgressBarColor" format="color"/>
+        <attr name="filledProgressBarLength" format="dimension" />
+        <attr name="filledProgressBarWidth" format="dimension" />
+        <attr name="filledProgressBarSpacing" format="dimension" />
+        <attr name="filledProgressBarColor" format="color" />
 
-        <attr name="emptyProgressBarLength" format="dimension"/>
-        <attr name="emptyProgressBarWidth" format="dimension"/>
-        <attr name="emptyProgressBarSpacing" format="dimension"/>
-        <attr name="emptyProgressBarColor" format="color"/>
+        <attr name="emptyProgressBarLength" format="dimension" />
+        <attr name="emptyProgressBarWidth" format="dimension" />
+        <attr name="emptyProgressBarSpacing" format="dimension" />
+        <attr name="emptyProgressBarColor" format="color" />
 
-        <attr name="startAngle" format="float"/>
-        <attr name="endAngle" format="float"/>
+        <attr name="startAngle" format="float" />
+        <attr name="endAngle" format="float" />
 
+        <attr name="direction" format="enum">
+            <enum name="clockwise" value="1"/>
+            <enum name="counterclockwise" value="-1"/>
+        </attr>
     </declare-styleable>
 
 </resources>
