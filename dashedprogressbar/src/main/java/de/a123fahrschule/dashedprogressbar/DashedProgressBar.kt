@@ -113,13 +113,13 @@ open class DashedProgressBar : View {
 
 
         val pad = if (cutPadding) Math.min(getPaddingHeight(canvas.height.toFloat() / 2f, -1 * startAngle), getPaddingHeight(canvas.height.toFloat() / 2f, -1 * endAngle)) else 0f
-        var totalAngle = (360 - startAngle) - (360 - endAngle)
+        var totalAngle = -1 * direction * (360 - (startAngle - endAngle))
         if (direction == -1) {
-            totalAngle = 360 - Math.abs(totalAngle)
+            totalAngle = 360 - totalAngle
         }
 
-        canvas.drawArc(padding, padding + pad, w, h + pad, endAngle, (-1 * (totalAngle - (totalAngle * progess))) * direction, false, emptyBarPAint)
-        canvas.drawArc(padding, padding + pad, w, h + pad, startAngle, (totalAngle * progess) * direction, false, filledBarPaint)
+        canvas.drawArc(padding, padding + pad, w, h + pad, endAngle, (-1 * (totalAngle - (totalAngle * progess))) * direction * if(direction == 1) -1 else 1 , false, emptyBarPAint)
+        canvas.drawArc(padding, padding + pad, w, h + pad, startAngle, (totalAngle * progess) * direction * if(direction == 1) -1 else 1, false, filledBarPaint)
 
     }
 
