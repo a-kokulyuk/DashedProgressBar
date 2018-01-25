@@ -16,9 +16,11 @@
         <attr name="endAngle" format="float" />
 
         <attr name="direction" format="enum">
-            <enum name="clockwise" value="1"/>
-            <enum name="counterclockwise" value="-1"/>
+            <enum name="clockwise" value="1" />
+            <enum name="counterclockwise" value="-1" />
         </attr>
+
+        <attr name="cutPadding" format="boolean" />
     </declare-styleable>
 
 </resources>

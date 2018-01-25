@@ -39,6 +39,8 @@ open class DashedProgressBar : View {
 
     private var direction: Int = 1
 
+    private var cutPadding: Boolean = false
+
     var progess: Float = 0.3f
         set(value) {
             field = value
@@ -94,6 +96,8 @@ open class DashedProgressBar : View {
                 direction = ta.getInt(R.styleable.DashedProgressBar_direction, 1)
             }
 
+            cutPadding = ta.getBoolean(R.styleable.DashedProgressBar_cutPadding, false)
+
         } finally {
             ta.recycle()
         }
@@ -108,11 +112,12 @@ open class DashedProgressBar : View {
         val w = canvas.width - padding
 
 
-        val pad = if (direction == 1) Math.min(getPaddingHeight(canvas.height.toFloat() / 2f, -1 * startAngle), getPaddingHeight(canvas.height.toFloat() / 2f, -1 * endAngle)) else 0f
+        val pad = if (cutPadding) Math.min(getPaddingHeight(canvas.height.toFloat() / 2f, -1 * startAngle), getPaddingHeight(canvas.height.toFloat() / 2f, -1 * endAngle)) else 0f
         var totalAngle = (360 - startAngle) - (360 - endAngle)
         if (direction == -1) {
             totalAngle = 360 - Math.abs(totalAngle)
         }
+
         canvas.drawArc(padding, padding + pad, w, h + pad, endAngle, (-1 * (totalAngle - (totalAngle * progess))) * direction, false, emptyBarPAint)
         canvas.drawArc(padding, padding + pad, w, h + pad, startAngle, (totalAngle * progess) * direction, false, filledBarPaint)
 
